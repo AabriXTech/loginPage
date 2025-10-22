@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Character encoding for proper text display -->
+    <meta charset="UTF-8">
+    <!-- Responsive viewport for mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Login Page</title>
+    <style>
+        /* Reset default browser styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; /* Include padding/border in element size */
+        }
+
+        /* Body styling with gradient background */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Purple gradient */
+            min-height: 100vh; /* Full viewport height */
+            display: flex; /* Flexbox for centering */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+            padding: 20px; /* Padding for mobile */
+        }
+
+        /* Login container styling */
+        .login-container {
+            background: white;
+            padding: 3rem; /* 48px padding */
+            border-radius: 20px; /* Rounded corners */
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3); /* Shadow for depth */
+            width: 100%;
+            max-width: 400px; /* Maximum width */
+            animation: slideIn 0.5s ease; /* Slide in animation */
+        }
+
+        /* Slide in animation from top */
+        @keyframes slideIn {
+            from {
+                opacity: 0; /* Start invisible */
+                transform: translateY(-30px); /* Start above */
+            }
+            to {
+                opacity: 1; /* Become visible */
+                transform: translateY(0); /* Move to position */
+            }
+        }
+
+        /* Login header styling */
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Main heading */
+        .login-header h1 {
+            color: #667eea; /* Purple color */
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+        }
+
+        /* Subtitle text */
+        .login-header p {
+            color: #666; /* Gray color */
+            font-size: 0.9rem;
+        }
+
+        /* Form group container */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Form label styling */
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333; /* Dark gray */
+            font-weight: 600;
+        }
+
+        /* Input field styling */
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0; /* Light gray border */
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease; /* Smooth transitions */
+        }
+
+        /* Input focus effect */
+        .form-group input:focus {
+            outline: none; /* Remove default outline */
+            border-color: #667eea; /* Purple border */
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); /* Glow effect */
+        }
+
+        /* Password container for show/hide button */
+        .password-container {
+            position: relative; /* For absolute positioning of child */
+        }
+
+        /* Show/hide password button */
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%); /* Center vertically */
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        /* Remember me checkbox container */
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between; /* Space between items */
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Checkbox label styling */
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem; /* Space between checkbox and text */
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Checkbox styling */
+        .remember-me input[type="checkbox"] {
+            width: auto; /* Don't stretch checkbox */
+            cursor: pointer;
+        }
+
+        /* Forgot password link */
+        .forgot-password {
+            color: #667eea; /* Purple color */
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        /* Forgot password hover effect */
+        .forgot-password:hover {
+            color: #764ba2; /* Darker purple */
+        }
+
+        /* Login button styling */
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea, #764ba2); /* Gradient */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease; /* Smooth transform */
+        }
+
+        /* Login button hover effect */
+        .login-btn:hover {
+            transform: translateY(-2px); /* Lift up */
+        }
+
+        /* Login button active (clicked) effect */
+        .login-btn:active {
+            transform: translateY(0); /* Return to position */
+        }
+
+        /* Divider styling */
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        /* Divider line */
+        .divider::before,
+        .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%; /* 40% width on each side */
+            height: 1px;
+            background: #e0e0e0; /* Light gray line */
+        }
+
+        /* Left line */
+        .divider::before {
+            left: 0;
+        }
+
+        /* Right line */
+        .divider::after {
+            right: 0;
+        }
+
+        /* Divider text */
+        .divider span {
+            background: white;
+            padding: 0 10px;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Social login buttons container */
+        .social-login {
+            display: flex;
+            gap: 1rem; /* Space between buttons */
+            margin-bottom: 1.5rem;
+        }
+
+        /* Individual social button */
+        .social-btn {
+            flex: 1; /* Equal width */
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Social button hover effect */
+        .social-btn:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        /* Signup link container */
+        .signup-link {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Signup link styling */
+        .signup-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Signup link hover effect */
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Error message styling */
+        .error-message {
+            background: #fee; /* Light red background */
+            color: #c33; /* Dark red text */
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none; /* Hidden by default */
+            font-size: 0.9rem;
+        }
+
+        /* Show error message */
+        .error-message.show {
+            display: block; /* Make visible */
+        }
+
+        /* Success message styling */
+        .success-message {
+            background: #efe; /* Light green background */
+            color: #3c3; /* Dark green text */
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none; /* Hidden by default */
+            font-size: 0.9rem;
+        }
+
+        /* Show success message */
+        .success-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main login container -->
+    <div class="login-container">
+        <!-- Login header -->
+        <div class="login-header">
+            <h1>🔐 Welcome Back</h1>
+            <p>Please login to your account</p>
+        </div>
+
+        <!-- Error message (hidden by default) -->
+        <div class="error-message" id="errorMessage"></div>
+
+        <!-- Success message (hidden by default) -->
+        <div class="success-message" id="successMessage"></div>
+
+        <!-- Login form -->
+        <form id="loginForm">
+            <!-- Email input -->
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    placeholder="Enter your email"
+                    required
+                >
+            </div>
+
+            <!-- Password input with show/hide toggle -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="password-container">
+                    <input 
+                        type="password" 
+                        id="password" 
+                        placeholder="Enter your password"
+                        required
+                    >
+                    <!-- Toggle password visibility button -->
+                    <button type="button" class="toggle-password" id="togglePassword">
+                        👁️
+                    </button>
+                </div>
+            </div>
+
+            <!-- Remember me and forgot password -->
+            <div class="remember-forgot">
+                <label class="remember-me">
+                    <input type="checkbox" id="rememberMe">
+                    <span>Remember me</span>
+                </label>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+
+            <!-- Login button -->
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+
+        <!-- Divider -->
+        <div class="divider">
+            <span>or continue with</span>
+        </div>
+
+        <!-- Social login buttons -->
+        <div class="social-login">
+            <button class="social-btn" id="googleBtn">📱</button>
+            <button class="social-btn" id="facebookBtn">📘</button>
+            <button class="social-btn" id="twitterBtn">🐦</button>
+        </div>
+
+        <!-- Signup link -->
+        <div class="signup-link">
+            Don't have an account? <a href="#">Sign Up</a>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // GET DOM ELEMENTS
+        // ============================================
+        
+        // Get the login form element
+        const loginForm = document.getElementById('loginForm');
+        
+        // Get email input field
+        const emailInput = document.getElementById('email');
+        
+        // Get password input field
+        const passwordInput = document.getElementById('password');
+        
+        // Get toggle password button
+        const togglePassword = document.getElementById('togglePassword');
+        
+        // Get remember me checkbox
+        const rememberMe = document.getElementById('rememberMe');
+        
+        // Get error message element
+        const errorMessage = document.getElementById('errorMessage');
+        
+        // Get success message element
+        const successMessage = document.getElementById('successMessage');
+        
+        // Get social login buttons
+        const googleBtn = document.getElementById('googleBtn');
+        const facebookBtn = document.getElementById('facebookBtn');
+        const twitterBtn = document.getElementById('twitterBtn');
+
+        // ============================================
+        // TOGGLE PASSWORD VISIBILITY
+        // ============================================
+        
+        // Add click event to toggle password button
+        togglePassword.addEventListener('click', () => {
+            // Get current type of password input
+            const type = passwordInput.getAttribute('type');
+            
+            // If currently password (hidden)
+            if (type === 'password') {
+                // Change to text (visible)
+                passwordInput.setAttribute('type', 'text');
+                // Change icon to indicate password is visible
+                togglePassword.textContent = '🙈';
+            } else {
+                // Change back to password (hidden)
+                passwordInput.setAttribute('type', 'password');
+                // Change icon back
+                togglePassword.textContent = '👁️';
+            }
+        });
+
+        // ============================================
+        // FORM VALIDATION
+        // ============================================
+        
+        // Function to validate email format
+        function validateEmail(email) {
+            // Regular expression for email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            // Test if email matches the pattern
+            return emailRegex.test(email);
+        }
+
+        // Function to show error message
+        function showError(message) {
+            // Set error message text
+            errorMessage.textContent = message;
+            // Show error message
+            errorMessage.classList.add('show');
+            // Hide success message if visible
+            successMessage.classList.remove('show');
+            
+            // Auto-hide error after 3 seconds
+            setTimeout(() => {
+                errorMessage.classList.remove('show');
+            }, 3000);
+        }
+
+        // Function to show success message
+        function showSuccess(message) {
+            // Set success message text
+            successMessage.textContent = message;
+            // Show success message
+            successMessage.classList.add('show');
+            // Hide error message if visible
+            errorMessage.classList.remove('show');
+            
+            // Auto-hide success after 3 seconds
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 3000);
+        }
+
+        // ============================================
+        // FORM SUBMISSION
+        // ============================================
+        
+        // Add submit event listener to form
+        loginForm.addEventListener('submit', (e) => {
+            // Prevent default form submission (page reload)
+            e.preventDefault();
+            
+            // Get input values
+            const email = emailInput.value.trim(); // Remove whitespace
+            const password = passwordInput.value;
+            
+            // Validate email
+            if (!validateEmail(email)) {
+                showError('Please enter a valid email address');
+                return; // Stop execution
+            }
+            
+            // Validate password length
+            if (password.length < 6) {
+                showError('Password must be at least 6 characters');
+                return;
+            }
+            
+            // Log form data (in real app, would send to server)
+            console.log('Login attempt:');
+            console.log('Email:', email);
+            console.log('Password:', password);
+            console.log('Remember me:', rememberMe.checked);
+            
+            // If remember me is checked, save email to local storage
+            if (rememberMe.checked) {
+                localStorage.setItem('rememberedEmail', email);
+            } else {
+                // Remove saved email if unchecked
+                localStorage.removeItem('rememberedEmail');
+            }
+            
+            // Show success message
+            showSuccess('Login successful! Redirecting...');
+            
+            // Simulate redirect after 2 seconds
+            setTimeout(() => {
+                console.log('Redirecting to dashboard...');
+                // In real app: window.location.href = '/dashboard';
+            }, 2000);
+        });
+
+        // ============================================
+        // SOCIAL LOGIN BUTTONS
+        // ============================================
+        
+        // Google login button
+        googleBtn.addEventListener('click', () => {
+            console.log('Google login clicked');
+            showSuccess('Redirecting to Google login...');
+            // In real app: redirect to Google OAuth
+        });
+        
+        // Facebook login button
+        facebookBtn.addEventListener('click', () => {
+            console.log('Facebook login clicked');
+            showSuccess('Redirecting to Facebook login...');
+            // In real app: redirect to Facebook OAuth
+        });
+        
+        // Twitter login button
+        twitterBtn.addEventListener('click', () => {
+            console.log('Twitter login clicked');
+            showSuccess('Redirecting to Twitter login...');
+            // In real app: redirect to Twitter OAuth
+        });
+
+        // ============================================
+        // LOAD REMEMBERED EMAIL
+        // ============================================
+        
+        // When page loads, check if email was remembered
+        window.addEventListener('load', () => {
+            // Get saved email from local storage
+            const savedEmail = localStorage.getItem('rememberedEmail');
+            
+            // If email was saved
+            if (savedEmail) {
+                // Fill in the email field
+                emailInput.value = savedEmail;
+                // Check the remember me checkbox
+                rememberMe.checked = true;
+            }
+        });
+
+        // ============================================
+        // CONSOLE LOG
+        // ============================================
+        
+        // Log message when page loads
+        console.log('Login page loaded! 🔐');
+    </script>
+</body>
+</html>

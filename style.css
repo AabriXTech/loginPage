@@ -1,0 +1,738 @@
+/* ========================================
+   GLOBAL RESET & BASE STYLES
+   ======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ========================================
+   ANIMATED BACKGROUND
+   Beautiful gradient with floating shapes
+   ======================================== */
+.background {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    z-index: -2;
+    overflow: hidden;
+}
+
+/* Floating background shapes for depth */
+.background .shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    animation: float 20s infinite ease-in-out;
+}
+
+.background .shape:nth-child(1) {
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    top: -100px;
+    left: -100px;
+    animation-delay: 0s;
+}
+
+.background .shape:nth-child(2) {
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    bottom: -100px;
+    right: -100px;
+    animation-delay: -7s;
+}
+
+.background .shape:nth-child(3) {
+    width: 350px;
+    height: 350px;
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-delay: -14s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    25% {
+        transform: translate(50px, -50px) scale(1.1);
+    }
+    50% {
+        transform: translate(-30px, 30px) scale(0.9);
+    }
+    75% {
+        transform: translate(40px, 60px) scale(1.05);
+    }
+}
+
+/* ========================================
+   CONTAINER
+   Centers the login box on screen
+   ======================================== */
+.container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ========================================
+   LOGIN BOX - Main Card
+   Cute compact design with glassmorphism
+   ======================================== */
+.login-box {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 35px 35px;  /* Reduced from 50px 40px - more compact! */
+    width: 400px;  /* Reduced from 450px - cuter size! */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    z-index: 10;
+    animation: slideIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Slide in animation for login box entrance */
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ========================================
+   AVATAR SECTION
+   Cute user icon at the top
+   ======================================== */
+.avatar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;  /* Reduced from 20px - tighter spacing! */
+    animation: bounceIn 1s ease-out;
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Avatar circle with gradient background */
+.avatar-circle {
+    width: 70px;  /* Reduced from 100px - cuter smaller size! */
+    height: 70px;  /* Reduced from 100px */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: pulse 2s infinite;
+    position: relative;
+}
+
+/* Ripple effect around avatar */
+.avatar-circle::before {
+    content: '';
+    position: absolute;
+    width: 80px;  /* Adjusted for smaller avatar */
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    animation: ripple 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.3);
+        opacity: 0;
+    }
+}
+
+/* User icon inside avatar */
+.avatar-circle svg {
+    width: 35px;  /* Reduced from 50px */
+    height: 35px;
+    color: white;
+}
+
+/* ========================================
+   TITLE & SUBTITLE
+   Welcome message section
+   ======================================== */
+.title {
+    text-align: center;
+    color: white;
+    font-size: 26px;  /* Reduced from 32px - cuter! */
+    font-weight: 700;
+    margin-bottom: 6px;  /* Reduced from 10px */
+    animation: fadeInDown 0.8s ease-out 0.2s both;
+}
+
+.subtitle {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 13px;  /* Reduced from 14px */
+    margin-bottom: 22px;  /* Reduced from 30px - tighter! */
+    animation: fadeInDown 0.8s ease-out 0.3s both;
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   LOGIN FORM
+   Input fields and form elements
+   ======================================== */
+.login-form {
+    animation: fadeIn 0.8s ease-out 0.4s both;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Spacing between input fields */
+.input-group {
+    margin-bottom: 18px;  /* Reduced from 25px - compact! */
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+/* Icon inside input fields */
+.input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;  /* Slightly smaller */
+    height: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+/* Input field styling */
+.input-wrapper input {
+    width: 100%;
+    padding: 12px 14px 12px 45px;  /* Reduced padding - cuter! */
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;  /* Slightly smaller radius */
+    color: white;
+    font-size: 14px;  /* Reduced from 15px */
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.input-wrapper input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.input-wrapper input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+.input-wrapper input:focus ~ .input-border {
+    width: 100%;
+}
+
+.input-wrapper input:focus + .input-icon {
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.input-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    transition: width 0.4s ease;
+    border-radius: 2px;
+}
+
+/* ========================================
+   OPTIONS ROW
+   Remember me checkbox & forgot password
+   ======================================== */
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;  /* Reduced from 25px */
+    animation: fadeIn 0.8s ease-out 0.5s both;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Custom checkbox styling */
+.checkmark {
+    width: 18px;  /* Slightly smaller */
+    height: 18px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    margin-right: 8px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Checkmark icon inside checkbox */
+.checkmark::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.3s ease;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: transparent;
+    animation: checkboxPop 0.3s ease;
+}
+
+@keyframes checkboxPop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.checkbox-container input:checked ~ .checkmark::after {
+    transform: rotate(45deg) scale(1);
+}
+
+.checkbox-text {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+}
+
+.forgot-password {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.forgot-password::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: white;
+}
+
+.forgot-password:hover::after {
+    width: 100%;
+}
+
+/* ========================================
+   LOGIN BUTTON
+   Main action button with gradient
+   ======================================== */
+.login-btn {
+    width: 100%;
+    padding: 13px;  /* Reduced from 15px - more compact! */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 12px;  /* Reduced from 15px */
+    color: white;
+    font-size: 15px;  /* Reduced from 16px */
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;  /* Reduced from 10px */
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    animation: fadeIn 0.8s ease-out 0.6s both;
+}
+
+.login-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.login-btn:hover::before {
+    left: 100%;
+}
+
+.login-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+}
+
+.login-btn:active {
+    transform: translateY(-1px);
+}
+
+.btn-icon {
+    display: flex;
+    align-items: center;
+}
+
+.btn-icon svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.login-btn:hover .btn-icon svg {
+    transform: translateX(5px);
+}
+
+/* ========================================
+   DIVIDER
+   "or continue with" separator line
+   ======================================== */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 22px 0;  /* Reduced from 30px - tighter spacing! */
+    animation: fadeIn 0.8s ease-out 0.7s both;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.divider span {
+    padding: 0 15px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+}
+
+/* ========================================
+   SOCIAL LOGIN BUTTONS
+   Google, Facebook, GitHub buttons
+   ======================================== */
+.social-login {
+    display: flex;
+    gap: 12px;  /* Reduced from 15px */
+    justify-content: center;
+    margin-bottom: 20px;  /* Reduced from 25px */
+    animation: fadeIn 0.8s ease-out 0.8s both;
+}
+
+.social-btn {
+    width: 45px;  /* Reduced from 50px - cuter! */
+    height: 45px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;  /* Reduced from 12px */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Social button icons */
+.social-btn svg {
+    width: 22px;  /* Slightly smaller */
+    height: 22px;
+}
+
+/* Hover effects for social buttons */
+.social-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px) rotate(5deg);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Google button hover glow */
+.social-btn.google:hover {
+    box-shadow: 0 10px 30px rgba(66, 133, 244, 0.4);
+}
+
+/* Facebook button hover glow */
+.social-btn.facebook:hover {
+    box-shadow: 0 10px 30px rgba(24, 119, 242, 0.4);
+}
+
+/* GitHub button hover glow */
+.social-btn.github:hover {
+    box-shadow: 0 10px 30px rgba(51, 51, 51, 0.4);
+}
+
+/* ========================================
+   SIGNUP TEXT
+   Link to signup page at bottom
+   ======================================== */
+.signup-text {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 13px;  /* Reduced from 14px */
+    animation: fadeIn 0.8s ease-out 0.9s both;
+}
+
+.signup-link {
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.signup-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: white;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.signup-link:hover::after {
+    transform: scaleX(1);
+}
+
+/* ========================================
+   FLOATING ELEMENTS
+   Animated particles in background
+   ======================================== */
+.floating-elements {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.float-element {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: floatUp 15s infinite ease-in-out;
+}
+
+.float-element:nth-child(1) {
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 12s;
+}
+
+.float-element:nth-child(2) {
+    left: 30%;
+    animation-delay: 2s;
+    animation-duration: 15s;
+    width: 15px;
+    height: 15px;
+}
+
+.float-element:nth-child(3) {
+    left: 50%;
+    animation-delay: 4s;
+    animation-duration: 18s;
+    width: 25px;
+    height: 25px;
+}
+
+.float-element:nth-child(4) {
+    left: 70%;
+    animation-delay: 6s;
+    animation-duration: 14s;
+    width: 18px;
+    height: 18px;
+}
+
+.float-element:nth-child(5) {
+    left: 90%;
+    animation-delay: 8s;
+    animation-duration: 16s;
+    width: 22px;
+    height: 22px;
+}
+
+@keyframes floatUp {
+    0% {
+        bottom: -50px;
+        opacity: 0;
+        transform: translateX(0) rotate(0deg);
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        bottom: 110vh;
+        opacity: 0;
+        transform: translateX(100px) rotate(360deg);
+    }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   Mobile-friendly adjustments
+   ======================================== */
+@media (max-width: 768px) {
+    .login-box {
+        width: 90%;
+        padding: 30px 25px;  /* Even more compact on mobile */
+    }
+    
+    .title {
+        font-size: 24px;  /* Smaller on mobile */
+    }
+    
+    .social-login {
+        gap: 10px;
+    }
+    
+    .social-btn {
+        width: 42px;  /* Smaller on mobile */
+        height: 42px;
+    }
+}
+
+/* ========================================
+   ADDITIONAL HOVER EFFECTS
+   Extra polish and interactivity
+   ======================================== */
+
+/* Login box lifts up on hover */
+.login-box:hover {
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+}
+
+/* Input fields glow when focused */
+.input-wrapper input:focus {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Button pulse animation on click */
+@keyframes buttonPulse {
+    0%, 100% {
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+    50% {
+        box-shadow: 0 10px 40px rgba(102, 126, 234, 0.7);
+    }
+}
+
+.login-btn:active {
+    animation: buttonPulse 0.5s ease;
+}
